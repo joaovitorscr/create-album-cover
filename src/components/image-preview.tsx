@@ -27,28 +27,36 @@ export function ImagePreview({ image }: ImagePreviewProps) {
             const containerWidth = container.clientWidth
             const containerHeight = container.clientHeight
 
+            const devicePixelRatio = window.devicePixelRatio || 1
+
             let canvasWidth, canvasHeight
 
             if (containerWidth / containerHeight > aspectRatio) {
-                canvasHeight = Math.min(containerHeight, 5000)
+                canvasHeight = containerHeight
                 canvasWidth = canvasHeight * aspectRatio
             } else {
-                canvasWidth = Math.min(containerWidth, 5000)
+                canvasWidth = containerWidth
                 canvasHeight = canvasWidth / aspectRatio
             }
 
-            canvas.width = canvasWidth
-            canvas.height = canvasHeight
+            canvas.style.width = `${canvasWidth}px`
+            canvas.style.height = `${canvasHeight}px`
+
+            canvas.width = canvasWidth * devicePixelRatio
+            canvas.height = canvasHeight * devicePixelRatio
+
+            ctx.scale(devicePixelRatio, devicePixelRatio)
 
             ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight)
         }
     }, [image])
 
     return (
-        <div className="flex flex-col h-full mt-8">
-            <div className="flex-1 flex items-center justify-center overflow-hidden">
-                <canvas ref={canvasRef} className="max-w-full max-h-full rounded-md" />
-            </div>
+        <div className="w-full h-full flex items-center justify-center">
+            <canvas
+                ref={canvasRef}
+                className="max-w-full max-h-full rounded-lg shadow-lg"
+            />
         </div>
     )
 }

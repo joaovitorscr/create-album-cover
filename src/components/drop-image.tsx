@@ -24,7 +24,7 @@ export function DropImage({ onImageUpload }: DropImageProps) {
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-  };  
+  };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -46,42 +46,43 @@ export function DropImage({ onImageUpload }: DropImageProps) {
   };
 
   return (
-  <div
-    onDrop={handleDrop}
-    onDragEnter={handleDragEnter}
-    onDragLeave={handleDragLeave}
-    onDragOver={handleDragOver}
-    className={cn(`transition-colors border-2 p-8 rounded-xl mx-auto w-92 max-w-2xl flex flex-col items-center justify-center cursor-pointer outline-none focus:ring-2 focus:ring-blue-400`, isDragging
-    ? "border-blue-500 bg-blue-50"
-    : "border-dashed border-gray-300 bg-white") }
-    tabIndex={0}
-    role="button"
-    aria-label="Upload image by clicking or dragging"
-    onClick={handleUploadClick}
-  >
-    <div className="flex flex-col items-center space-y-2 pointer-events-none select-none">
-      <UploadIcon
-        className={`size-8 mb-2 transition-colors ${
-          isDragging ? "text-blue-500" : "text-gray-400"
-        }`}
-        strokeWidth={2.2}
+    <div
+      onDrop={handleDrop}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDragOver={handleDragOver}
+      className={cn(
+        "transition-colors border-2 p-8 rounded-xl mx-auto w-92 max-w-2xl flex flex-col items-center justify-center cursor-pointer outline-none focus:ring-2 focus:ring-primary",
+        isDragging
+          ? "border-primary bg-primary/10"
+          : "border-dashed border-muted-foreground bg-muted"
+      )}
+      tabIndex={0}
+      role="button"
+      aria-label="Upload image by clicking or dragging"
+      onClick={handleUploadClick}
+    >
+      <div className="flex flex-col items-center space-y-2 pointer-events-none select-none">
+        <UploadIcon
+          className={cn("size-8 mb-2 transition-colors", isDragging ? "text-green-500" : "text-gray-400"
+          )}
+          strokeWidth={2.2}
+        />
+        <span
+          className={cn("font-medium text-lg", isDragging ? "text-green-500" : "text-gray-400"
+          )}
+        >
+          {isDragging ? "Drop your image here" : "Click or drag an image to upload"}
+        </span>
+      </div>
+      <input
+        ref={inputRef}
+        type="file"
+        className="hidden"
+        accept="image/*"
+        onChange={handleFileChange}
+        tabIndex={-1}
       />
-      <span
-        className={`font-medium text-lg ${
-          isDragging ? "text-blue-600" : "text-gray-700"
-        }`}
-      >
-        {isDragging ? "Drop your image here" : "Click or drag an image to upload"}
-      </span>
     </div>
-    <input
-      ref={inputRef}
-      type="file"
-      className="hidden"
-      accept="image/*"
-      onChange={handleFileChange}
-      tabIndex={-1}
-    />
-  </div>
   );
 }
