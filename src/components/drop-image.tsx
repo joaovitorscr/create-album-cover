@@ -52,27 +52,33 @@ export function DropImage({ onImageUpload }: DropImageProps) {
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
       className={cn(
-        "transition-colors border-2 p-8 rounded-xl mx-auto w-92 max-w-2xl flex flex-col items-center justify-center cursor-pointer outline-none focus:ring-2 focus:ring-primary",
+        "w-92 focus:ring-primary mx-auto flex max-w-2xl cursor-pointer flex-col items-center justify-center rounded-xl border-2 p-8 outline-none transition-colors focus:ring-2",
         isDragging
           ? "border-primary bg-primary/10"
-          : "border-dashed border-muted-foreground bg-muted"
+          : "border-muted-foreground bg-muted border-dashed",
       )}
       tabIndex={0}
       role="button"
       aria-label="Upload image by clicking or dragging"
       onClick={handleUploadClick}
     >
-      <div className="flex flex-col items-center space-y-2 pointer-events-none select-none">
+      <div className="pointer-events-none flex select-none flex-col items-center space-y-2">
         <UploadIcon
-          className={cn("size-8 mb-2 transition-colors", isDragging ? "text-green-500" : "text-gray-400"
+          className={cn(
+            "mb-2 size-8 transition-colors",
+            isDragging ? "text-green-500" : "text-gray-400",
           )}
           strokeWidth={2.2}
         />
         <span
-          className={cn("font-medium text-lg", isDragging ? "text-green-500" : "text-gray-400"
+          className={cn(
+            "text-lg font-medium",
+            isDragging ? "text-green-500" : "text-gray-400",
           )}
         >
-          {isDragging ? "Drop your image here" : "Click or drag an image to upload"}
+          {isDragging
+            ? "Drop your image here"
+            : "Click or drag an image to upload"}
         </span>
       </div>
       <input
